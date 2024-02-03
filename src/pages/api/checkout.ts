@@ -1,6 +1,6 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import axios from "axios"
-import { createPublicClient, http, parseUnits } from "viem";
+import { createPublicClient, formatUnits, http, parseUnits } from "viem";
 import {USDCABI} from "../../constants/ABI/usdc";
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -49,7 +49,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           />
           <meta
             name="fc:frame:post_url"
-            content="https://d226-2409-40f2-6-551b-3596-3721-1eda-2ec6.ngrok-free.app/api/checkout"
+            content="https://ba43-2409-40f2-6-551b-3596-3721-1eda-2ec6.ngrok-free.app/api/checkout"
           />
         </head>
       </html>
@@ -80,7 +80,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <meta property="fc:frame:button:1" content="let's get started" />
         <meta
           name="fc:frame:post_url"
-          content="https://d226-2409-40f2-6-551b-3596-3721-1eda-2ec6.ngrok-free.app/api/checkout"
+          content="https://ba43-2409-40f2-6-551b-3596-3721-1eda-2ec6.ngrok-free.app/api/checkout"
         />
       </head>
     </html>
@@ -142,9 +142,12 @@ async function createSCW(pubKey: string){
       functionName: "balanceOf",
       args: [responseBody.result[0].smartAccountAddress],
     });
-    console.log("Balance: ", parseUnits(balance.toString(), 6));
-    if (parseUnits(balance.toString(), 6) < 100000) {
-      await requestDeposit(pubKey);
+    console.log("Balance: ", formatUnits(balance, 6));
+    const formattedBalance = formatUnits(balance, 6);
+    console.log("Formatted Balance: ", parseFloat(formattedBalance) );
+    if (parseFloat(formattedBalance) < 0.2) {
+    const response =  await requestDeposit(pubKey);
+    await postCast(response.data.data.id);
     }
     return responseBody.result[0].smartAccountAddress;
     
@@ -182,4 +185,20 @@ async function requestDeposit(pubKey:string){
   });
   console.log("Request: ", request);
   return request;
+}
+
+
+async function postCast(id:number){
+  const postCast = await axios({
+    url: "https://api.neynar.com/v2/farcaster/cast",
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "api_key": process.env.NEYNAR_API_KEY
+    },
+    data: {
+      "signer_uuid": process.env.SIGNER_UUID,
+      "text": `Instant checkout by Fetcch, link - https://request.fetcch.xyz/request/${id}}`
+    }
+  })
 }
