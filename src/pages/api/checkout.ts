@@ -70,7 +70,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <meta property="fc:frame" content="vNext" />
         <meta
           property="fc:frame:image"
-          content="https://instant-checkout-farcaster.vercel.app/img/fetcch.png"
+          content="/connect_wallet.png"
         />
         <meta property="fc:frame:button:1" content="let's get started" />
         <meta
