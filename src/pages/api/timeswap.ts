@@ -7,6 +7,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
     if (req.method == "GET") {
     const response = await timeSwap();
+
     console.log("Timeswap data fetched successfully", response);
         
       res.status(200).setHeader("Content-Type", "text/html").send(`
@@ -18,16 +19,16 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           <meta property="og:title" content="Instant perp by rkmonarch" />
           <meta
             property="og:image"
-            content="https://frames-perp.vercel.app/deposit.png"
+            content="https://frames-perp.vercel.app/timeswap.png"
           />
           <meta property="fc:frame" content="vNext" />
           <meta
             property="fc:frame:image"
-            content="https://frames-perp.vercel.app/deposit.png"
+            content="https://frames-perp.vercel.app/timeswap.png"
           />
           <meta
             property="fc:frame:button:1"
-            content="Polygon TVL"
+            content="Polygon ${response?.Polygon}"
           />
           <meta
             name="fc:frame:post_url"

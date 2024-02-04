@@ -9,8 +9,8 @@ export default async function timeSwap() {
             }
         });
         const data = await response.json();
-        console.log("Timeswap data fetched successfully", data);
-        return data;
+        console.log("Timeswap data fetched successfully", data.currentChainTvls);
+        return data.currentChainTvls;
 
     } catch (error) {
         console.error("Error fetching timeswap data", error);
