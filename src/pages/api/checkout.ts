@@ -125,7 +125,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <meta property="fc:frame:button:1" content="let's get started" />
         <meta
           name="fc:frame:post_url"
-          content="https://c589-2409-40f2-128-1953-317d-2d72-70d4-52f7.ngrok-free.app/api/checkout"
+          content="https://09da-2409-40f2-1029-f477-519f-23c9-b4c0-af30.ngrok-free.app/api/checkout"
         />   
       </head>
     </html>

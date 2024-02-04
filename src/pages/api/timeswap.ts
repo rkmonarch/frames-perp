@@ -44,7 +44,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         />
         <meta
         property="fc:frame:button:3"
-        content="Base ${formatInteraction(response.Base)}"
+        content="Optimism ${formatInteraction(response.Optimism)}"
       />
       <meta
         name="fc:frame:post_url"
@@ -56,7 +56,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     />
     <meta
     property="fc:frame:button:4"
-    content="Base ${formatInteraction(response.Arbitrum)}"
+    content="Arbitrum ${formatInteraction(response.Arbitrum)}"
   />
         </head>
       </html>
