@@ -21,7 +21,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       }
       console.log("SCW balance", scw?.balance);
 
-      if (scw!.balance < 0.2) {
+      if (scw!.balance < 0.1) {
         res.status(200).setHeader("Content-Type", "text/html").send(`
       <!DOCTYPE html>
       <html>
@@ -125,7 +125,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <meta property="fc:frame:button:1" content="let's get started" />
         <meta
           name="fc:frame:post_url"
-          content="https://09da-2409-40f2-1029-f477-519f-23c9-b4c0-af30.ngrok-free.app/api/checkout"
+          content="https://4ada-2409-40f2-1029-f477-519f-23c9-b4c0-af30.ngrok-free.app/api/checkout"
         />   
       </head>
     </html>
