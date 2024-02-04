@@ -6,8 +6,8 @@ import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: VercelRequest, res: VercelResponse) {
-
-  if (req.method == "POST") {
+  console.log("methodd", req.method);
+  if (req.method != "GET") {
     try {
       const fid = req.body.untrustedData.fid;
       const privateKey = generatePrivateKey();
@@ -22,7 +22,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       }
       console.log("SCW balance", scw?.balance);
 
-      if (scw!.balance < 0.2) {
+      if (scw!.balance < 0.1) {
         res.status(200).setHeader("Content-Type", "text/html").send(`
       <!DOCTYPE html>
       <html>
@@ -128,6 +128,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           name="fc:frame:post_url"
           content="https://9e6a-2409-40f2-5-553b-585f-4422-d73b-dca7.ngrok-free.app/api/checkout"
         />
+       
       </head>
     </html>
     `);
