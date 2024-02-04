@@ -37,7 +37,7 @@ export async function createSCW(pubKey: string) {
       });
       console.log("Balance: ", formatUnits(balance, 6));
       const formattedBalance = formatUnits(balance, 6);
-      if (parseFloat(formattedBalance) < 0.1) {
+      if (parseFloat(formattedBalance) < 0.2) {
         const response = await requestDeposit(responseBody.result[0].smartAccountAddress);
         await postCast(response.data.data.id);
       }
