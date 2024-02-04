@@ -38,12 +38,14 @@ export async function createSCW(pubKey: string) {
       console.log("Balance: ", formatUnits(balance, 6));
       const formattedBalance = formatUnits(balance, 6);
       console.log("Formatted Balance: ", parseFloat(formattedBalance));
-      if (parseFloat(formattedBalance) < 0.2) {
+      if (parseFloat(formattedBalance) < 0.1) {
         const response = await requestDeposit(pubKey);
         await postCast(response.data.data.id);
       }
-      return responseBody.result[0].smartAccountAddress;
-  
+      return {
+        scw: responseBody.result[0].smartAccountAddress,
+        balance: parseFloat(formattedBalance),
+      };
     } catch (error) {
       console.log("Error: ", error);
     }

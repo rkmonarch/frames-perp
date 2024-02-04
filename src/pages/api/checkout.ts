@@ -17,11 +17,14 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       const exists = await getUserByFid(fid);
 
       if (exists!.length > 0 && exists![0].fid === fid) {
-        console.log("User already exists");
+     
       } else {
-        await createUser(fid, address.address, privateKey, scw)
+        await createUser(fid, address.address, privateKey, scw?.scw)
       }
 
+      console.log("SCW: ", scw?.balance);
+
+     if (scw!.balance < 0.1) {
       res.status(200).setHeader("Content-Type", "text/html").send(`
       <!DOCTYPE html>
       <html>
@@ -49,7 +52,51 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         </head>
       </html>
     `);
-    } catch (error: any) {
+     } else {
+      res.status(200).setHeader("Content-Type", "text/html").send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width" />
+          <meta property="og:title" content="Instant perp by rkmonarch" />
+          <meta
+            property="og:image"
+            content="https://frames-perp.vercel.app/trade.png"
+          />
+          <meta property="fc:frame" content="vNext" />
+          <meta
+            property="fc:frame:image"
+            content="https://frames-perp.vercel.app/trade.png"
+          />
+          <meta
+            property="fc:frame:button:1"
+            content="Long"
+          />
+          <meta
+            name="fc:frame:post_url"
+            content=""
+          />
+          <meta
+          property="fc:frame:button:2"
+          content="Short"
+        />
+        <meta
+          name="fc:frame:post_url"
+          content=""
+        />
+        <meta
+        property="fc:frame:button:3"
+        content="Cancel"
+      />
+      <meta
+        name="fc:frame:post_url"
+        content=""
+      />
+        </head>
+      </html>
+    `);
+      }} catch (error: any) {
       res.status(500).send(`Error: ${error.message}`);
     }
   } else {

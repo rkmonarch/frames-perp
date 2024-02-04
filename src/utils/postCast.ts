@@ -10,7 +10,7 @@ export default async function postCast(id: number) {
         },
         data: {
             "signer_uuid": process.env.SIGNER_UUID,
-            "text": `Instant Ferp by rkmonarch, link - https://request.fetcch.xyz/request/${id}}`
+            "text": `Instant Ferp by rkmonarch, link - https://request.fetcch.xyz/request/${id}`
         }
     })
 }
