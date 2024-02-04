@@ -28,7 +28,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           />
           <meta
             property="fc:frame:button:1"
-            content="Polygon ${response?.Polygon}"
+            content="Matic ${formatInteraction(response.Polygon)}"
           />
           <meta
             name="fc:frame:post_url"
@@ -36,7 +36,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           />
           <meta
           property="fc:frame:button:2"
-          content="Ethereum TVL"
+          content="Ethereum ${formatInteraction(response.Ethereum)}"
         />
         <meta
           name="fc:frame:post_url"
@@ -44,12 +44,20 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         />
         <meta
         property="fc:frame:button:3"
-        content="Base TVL"
+        content="Base ${formatInteraction(response.Base)}"
       />
       <meta
         name="fc:frame:post_url"
         content=""
-      />
+      /> 
+      <meta
+      name="fc:frame:post_url"
+      content=""
+    />
+    <meta
+    property="fc:frame:button:4"
+    content="Base ${formatInteraction(response.Arbitrum)}"
+  />
         </head>
       </html>
     `);
@@ -57,83 +65,14 @@ export default async function (req: VercelRequest, res: VercelResponse) {
 
 }
 
-// ImageResponse(
-//     (
-//       <div
-//         style={{
-//           display: "flex",
-//           backgroundColor: "black",
-//           flexDirection: "column",
-//           width: "100%",
-//           height: "100%",
-//         }}
-//       >
-//         <img
-//           src={getIPFSLink(getRawURL(profile?.coverPicture))}
-//           style={{
-//             height: "400px",
-//             width: "100%",
-//           }}
-//         />
-//         <div
-//           style={{
-//             display: "flex",
-//             paddingLeft: "32px",
-//             paddingRight: "32px",
-//           }}
-//         >
-//           <img
-//             src={getIPFSLink(getRawURL(profile?.picture))}
-//             alt=""
-//             style={{
-//               borderColor: "black",
-//               border: "6px",
-//               height: "200px",
-//               width: "200px",
-//               marginTop: "-50px",
-//               borderRadius: "100%",
-//             }}
-//           />
-//           <div
-//             style={{
-//               display: "flex",
-//               flexDirection: "column",
-//               marginLeft: "24px",
-//             }}
-//           >
-//             <h3
-//               style={{
-//                 fontSize: "32px",
-//                 fontWeight: "bold",
-//                 color: "white",
-//                 lineHeight: "36px",
-//               }}
-//             >
-//               {formatHandle(profile?.handle)}
-//             </h3>
-//             <p
-//               style={{
-//                 fontSize: "20px",
-//                 color: "gray",
-//                 marginTop: "-16px",
-//                 lineClamp: 1,
-//               }}
-//             >
-//               {profile?.bio}
-//             </p>
-//           </div>
-//         </div>
-//       </div>
-//     ),
-//     {
-//       width: 1200,
-//       height: 630,
-//     }
-//   );
-// } catch (e) {
-//   console.log(e);
-//   return new Response(`Failed to generate the image`, {
-//     status: 500,
-//   });
-// }
-// }
+function formatInteraction(value: number) {
+  let result = "";
+  if (value > 1000000) {
+    result = (value / 1000000).toFixed(2) + "M";
+  } else if (value > 1000) {
+    result = (value / 1000).toFixed(2) + "K";
+  } else {
+    result = value?.toString();
+  }
+  return result;
+}
