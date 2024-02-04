@@ -8,7 +8,7 @@ import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 export default async function (req: VercelRequest, res: VercelResponse) {
 
   if (req.method == "POST") {
-    try {     
+    try {
       const fid = req.body.untrustedData.fid;
       const privateKey = generatePrivateKey();
       const address = privateKeyToAccount(privateKey);
@@ -17,15 +17,13 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       const exists = await getUserByFid(fid);
 
       if (exists!.length > 0 && exists![0].fid === fid) {
-     
       } else {
         await createUser(fid, address.address, privateKey, scw?.scw)
       }
+      console.log("SCW balance", scw?.balance);
 
-      console.log("SCW: ", scw?.balance);
-
-     if (scw!.balance < 0.1) {
-      res.status(200).setHeader("Content-Type", "text/html").send(`
+      if (scw!.balance < 0.2) {
+        res.status(200).setHeader("Content-Type", "text/html").send(`
       <!DOCTYPE html>
       <html>
         <head>
@@ -47,13 +45,13 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           />
           <meta
             name="fc:frame:post_url"
-            content="https://fd13-2409-40f2-5-553b-585f-4422-d73b-dca7.ngrok-free.app/api/checkout"
+            content=""
           />
         </head>
       </html>
     `);
-     } else {
-      res.status(200).setHeader("Content-Type", "text/html").send(`
+      } else {
+        res.status(200).setHeader("Content-Type", "text/html").send(`
       <!DOCTYPE html>
       <html>
         <head>
@@ -93,16 +91,22 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         name="fc:frame:post_url"
         content=""
       />
+    <meta
+    property="fc:frame:button:4"
+    content="Withdraw"
+  />
+  <meta
+    name="fc:frame:post_url"
+    content=""
+  />
         </head>
       </html>
     `);
-      }} catch (error: any) {
+      }
+    } catch (error: any) {
       res.status(500).send(`Error: ${error.message}`);
     }
   } else {
-    // If the request is not a POST, we know that we're not dealing with a
-    // Farcaster Frame button click. Therefore, we should send the Farcaster Frame
-    // content
     res.status(200).setHeader("Content-Type", "text/html").send(`
     <!DOCTYPE html>
     <html>
@@ -122,7 +126,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <meta property="fc:frame:button:1" content="let's get started" />
         <meta
           name="fc:frame:post_url"
-          content="https://fd13-2409-40f2-5-553b-585f-4422-d73b-dca7.ngrok-free.app/api/checkout"
+          content="https://9e6a-2409-40f2-5-553b-585f-4422-d73b-dca7.ngrok-free.app/api/checkout"
         />
       </head>
     </html>
