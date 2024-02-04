@@ -28,15 +28,15 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <head>
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width" />
-          <meta property="og:title" content="Instant Checkout powered by Fetcch" />
+          <meta property="og:title" content="Instant perp by rkmonarch" />
           <meta
             property="og:image"
-            content="https://instant-checkout-farcaster.vercel.app/img/checkout.png"
+            content="https://frames-perp.vercel.app/deposit.png"
           />
           <meta property="fc:frame" content="vNext" />
           <meta
             property="fc:frame:image"
-            content="https://instant-checkout-farcaster.vercel.app/img/checkout.png"
+            content="https://frames-perp.vercel.app/deposit.png"
           />
           <meta
             property="fc:frame:button:1"
@@ -44,7 +44,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           />
           <meta
             name="fc:frame:post_url"
-            content="https://b3bd-125-99-228-169.ngrok-free.app/api/checkout"
+            content="https://fd13-2409-40f2-5-553b-585f-4422-d73b-dca7.ngrok-free.app/api/checkout"
           />
         </head>
       </html>
@@ -62,20 +62,20 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
-        <meta property="og:title" content="Instant Perp by rkmonarch" />
+        <meta property="og:title" content="Instant Ferps by rkmonarch" />
         <meta
           property="og:image"
-          content="https://instant-checkout-farcaster.vercel.app/img/fetcch.png"
+          content="https://frames-perp.vercel.app/welcome.png"
         />
         <meta property="fc:frame" content="vNext" />
         <meta
           property="fc:frame:image"
-          content="/connect_wallet.png"
+          content="https://frames-perp.vercel.app/welcome.png"
         />
         <meta property="fc:frame:button:1" content="let's get started" />
         <meta
           name="fc:frame:post_url"
-          content="https://b3bd-125-99-228-169.ngrok-free.app/api/checkout"
+          content="https://fd13-2409-40f2-5-553b-585f-4422-d73b-dca7.ngrok-free.app/api/checkout"
         />
       </head>
     </html>

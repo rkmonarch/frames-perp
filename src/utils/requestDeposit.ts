@@ -24,8 +24,8 @@ export default async function requestDeposit(pubKey: string) {
                     }
                 }
             ],
-            "message": "Frames Perp Checkout",
-            "label": "Frames Perp Checkout",
+            "message": "Ferps Checkout",
+            "label": "Ferps Checkout",
         }
     });
     console.log("Request: ", request);
