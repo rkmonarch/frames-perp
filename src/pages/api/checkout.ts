@@ -1,33 +1,26 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
-import axios from "axios"
-import { createPublicClient, formatUnits, http, parseUnits } from "viem";
-import { USDCABI } from "../../constants/ABI/usdc";
 import getAddrByFid from "@/utils/getAddrByFid";
 import { createSCW } from "@/utils/createSCW";
+import createUser, { getUserByFid } from "@/utils/supabse";
+import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req: VercelRequest, res: VercelResponse) {
 
   if (req.method == "POST") {
-    try {
-      console.log("req.body", req.body);
-
+    try {     
       const fid = req.body.untrustedData.fid;
+      const privateKey = generatePrivateKey();
+      const address = privateKeyToAccount(privateKey);
       const userAddress = await getAddrByFid(fid)
       const scw = await createSCW(userAddress)
+      const exists = await getUserByFid(fid);
 
-      const postCast = await axios({
-        url: "https://api.neynar.com/v2/farcaster/cast",
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "api_key": process.env.NEYNAR_API_KEY
-        },
-        data: {
-          "signer_uuid": process.env.SIGNER_UUID,
-          "text": ``
-        }
-      })
+      if (exists!.length > 0 && exists![0].fid === fid) {
+        console.log("User already exists");
+      } else {
+        await createUser(fid, address.address, privateKey, scw)
+      }
 
       res.status(200).setHeader("Content-Type", "text/html").send(`
       <!DOCTYPE html>
@@ -51,7 +44,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
           />
           <meta
             name="fc:frame:post_url"
-            content="https://ba43-2409-40f2-6-551b-3596-3721-1eda-2ec6.ngrok-free.app/api/checkout"
+            content="https://b3bd-125-99-228-169.ngrok-free.app/api/checkout"
           />
         </head>
       </html>
@@ -82,7 +75,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <meta property="fc:frame:button:1" content="let's get started" />
         <meta
           name="fc:frame:post_url"
-          content="https://ba43-2409-40f2-6-551b-3596-3721-1eda-2ec6.ngrok-free.app/api/checkout"
+          content="https://b3bd-125-99-228-169.ngrok-free.app/api/checkout"
         />
       </head>
     </html>
