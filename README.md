@@ -3,6 +3,12 @@ Ferps is a simple way to interact with Farcaster frames and start trading in cry
 
 We are also using Timeswap TVL machine for showing the TVL of timeswap among the differnt chains.
 
+## Neynar
+We are using neynar APIs for casting new casts and fetching the details about the user i.e. fid, username etc..
+you can find the neynar APIs at https://dev.neynar.com/
+
+and we are using supabase for storing the newly created signer and SCW of the user associated with their unique fid.
+
 ## Installation
 To install Ferps, you need to have node.js and npm installed on your system. Then you can run the following command to install Ferps:
 ```bash
@@ -13,7 +19,7 @@ yarn
 
 To use Ferps, you need to have node.js and npm installed on your system. Then you can run the following command to use Ferps:
 ```bash
-yarn start
+yarn dev
 ```
 
 ## Contributing
