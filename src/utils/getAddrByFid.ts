@@ -14,7 +14,10 @@ export default async function getAddrByFid(fid: number) {
     const responseBody = await resp.json(); 
     if (responseBody.users) {
       const users = responseBody.users[0];
-      return users.verifications[0]
+      return {
+        address: users.verifications[0],
+        handle: users.username,
+      }
     }
     return "0x0000000000000000000000000000000000000000";
   }

@@ -3,7 +3,7 @@ import { createPublicClient, formatUnits, http } from "viem";
 import requestDeposit from "./requestDeposit";
 import postCast from "./postCast";
 
-export async function createSCW(pubKey: string) {
+export async function createSCW(pubKey: string, handle:string) {
     console.log("Creating SCW for user: ", pubKey);
     try {
       const res = await fetch(`https://rpc.particle.network/evm-chain?chainId=137&projectUuid=${process.env.BICONOMY_PROJECT_UUID}&projectKey=${process.env.BICONOMY_KEY}`, {
@@ -37,9 +37,9 @@ export async function createSCW(pubKey: string) {
       });
       console.log("Balance: ", formatUnits(balance, 6));
       const formattedBalance = formatUnits(balance, 6);
-      if (parseFloat(formattedBalance) < 0.2) {
+      if (parseFloat(formattedBalance) < 0.1) {
         const response = await requestDeposit(responseBody.result[0].smartAccountAddress);
-        await postCast(response.data.data.id);
+        await postCast(response.data.data.id, handle);
       }
       return {
         scw: responseBody.result[0].smartAccountAddress,

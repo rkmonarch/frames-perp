@@ -11,8 +11,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
       const fid = req.body.untrustedData.fid;
       const privateKey = generatePrivateKey();
       const address = privateKeyToAccount(privateKey);
-      const userAddress = await getAddrByFid(fid)
-      const scw = await createSCW(userAddress)
+      const user:any = await getAddrByFid(fid)
+      const scw = await createSCW(user.address, user.handle)
       const exists = await getUserByFid(fid);
 
       if (exists!.length > 0 && exists![0].fid === fid) {
@@ -125,7 +125,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         <meta property="fc:frame:button:1" content="let's get started" />
         <meta
           name="fc:frame:post_url"
-          content="https://4ada-2409-40f2-1029-f477-519f-23c9-b4c0-af30.ngrok-free.app/api/checkout"
+          content="https://0d79-27-4-220-166.ngrok-free.app/api/checkout"
         />   
       </head>
     </html>
