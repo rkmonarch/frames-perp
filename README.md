@@ -1,4 +1,5 @@
 ## Ferps
+![welcome](https://github.com/rkmonarch/frames-perp/assets/89126159/796d3eb8-3bd5-4aa4-b9be-44fcaa80ade6)
 Ferps is a simple way to interact with Farcaster frames and start trading in crypto by just clicking one button. It uses biconomy smart contract wallet and Fetcch for requestig amount to deposit in the newly created wallet. It uses neynar APIs for casting new cast for users as a notification for depositing amount in the SCW. We are using dydx trading platform for trading and starting the opening or closing positions on behalf of the user. 
 
 We are also using Timeswap TVL machine for showing the TVL of timeswap among the differnt chains.
